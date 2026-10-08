@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -44,6 +44,10 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         /* --- TOP FOLD --- */
@@ -154,7 +158,92 @@
             transform: translateY(-2px);
         }
 
-        /* --- SECTION 2: VALUE --- */
+        /* --- QUIZ & FUNNEL STYLES --- */
+        .quiz-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            background-color: rgba(255,255,255,0.1);
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .quiz-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(181, 140, 70, 0.1);
+        }
+
+        .insta-box {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .insta-box svg {
+            width: 60px;
+            height: 60px;
+            fill: white;
+        }
+
+        .btn-green {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+        }
+        .btn-green:hover {
+            background-color: #128C7E;
+        }
+
+        .thank-you-title {
+            color: var(--accent-color);
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .thank-you-subtitle {
+            font-size: 1.125rem;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- SECTION 2, 3, 4, 5 (Landing Page) --- */
         .value-section {
             text-align: center;
             padding: 4rem 0;
@@ -184,7 +273,6 @@
             font-size: 1.5rem;
         }
 
-        /* --- SECTION 3: PROOF --- */
         .proof-section {
             padding: 5rem 0;
             text-align: center;
@@ -226,7 +314,6 @@
             background-color: var(--accent-color);
         }
 
-        /* --- SECTION 4: CONSULTATION --- */
         .consultation-section {
             padding: 5rem 0;
             display: grid;
@@ -242,18 +329,18 @@
             margin-bottom: 1.5rem;
         }
 
-        .consultation-image {
+        .consultation-image, .bio-image {
             background: #1A1A1A;
             border-radius: 12px;
-            height: 350px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5);
         }
+        .consultation-image { height: 350px; }
+        .bio-image { height: 400px; }
 
-        /* --- SECTION 5: BIO --- */
         .bio-section {
             padding: 5rem 0;
             display: grid;
@@ -261,13 +348,6 @@
             gap: 4rem;
             align-items: center;
             border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .bio-image {
-            background: #1A1A1A;
-            border-radius: 12px;
-            height: 400px;
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .bio-content h2 {
@@ -283,7 +363,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 3rem 0;
@@ -292,20 +371,17 @@
             font-size: 0.875rem;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
-            .consultation-section, .bio-section {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+            .consultation-section, .bio-section { grid-template-columns: 1fr; gap: 2rem; }
             .bio-image { height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- LANDING PAGE VIEW -->
+    <div id="landing-page" class="container">
         <!-- Hero Section -->
         <section class="hero">
             <div class="badge">Exclusivo para produtores, coprodutores e estrategistas de negócios digitais</div>
@@ -313,12 +389,11 @@
             <p>Cadastre-se Gratuitamente para sua Consultoria Estratégica.</p>
 
             <div class="video-container">
-                <!-- Replace with actual video embed code -->
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255,255,255,0.5);">Vídeo (Preview Placeholder)</div>
             </div>
 
             <div class="lead-form">
-                <form action="#" method="POST">
+                <form id="leadForm">
                     <div class="form-group">
                         <input type="text" id="name" name="name" class="form-control" placeholder="Digite seu nome..." required>
                     </div>
@@ -333,65 +408,122 @@
             </div>
         </section>
 
-        <!-- Value Section -->
         <section class="value-section">
             Chegou a hora de você ter acesso ao sistema de vendas, <u>responsável por gerar múltiplos dígitos de lucro em negócios digitais</u> sem a necessidade de investimento em tráfego.
-            
-            <div style="text-align: center;">
-                <div class="arrow-down">↓</div>
-            </div>
+            <div style="text-align: center;"><div class="arrow-down">↓</div></div>
         </section>
 
-        <!-- Social Proof Section -->
         <section class="proof-section">
             <h2 class="section-title">Um exemplo rápido de quem resolveu implementar esse <span class="highlight">ECOSSISTEMA DE ASCENSÃO.</span></h2>
-            
-            <!-- Carousel Placeholder -->
-            <div class="proof-placeholder">
-                [Imagem de Prova Social / Prints WhatsApp]
-            </div>
+            <div class="proof-placeholder">[Imagem de Prova Social]</div>
             <div class="dots">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+                <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
             </div>
         </section>
 
-        <!-- Consultation Section -->
         <section class="consultation-section">
             <div class="consultation-text">
                 <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Chegou a hora de você escalar o seu <span class="highlight">LUCRO</span> <br><span style="font-size: 1rem; color: #888; font-family: var(--font-sans); font-weight: normal;">(E eu não estou falando de upsell)</span></h2>
-                
                 <p>Semanalmente nossos consultores separam alguns horários para <strong class="highlight">mapearem brechas de lucro em negócios</strong> que já faturam no mercado digital e, <strong class="highlight">traçam um plano de ação</strong> focado 100% em escala de lucro.</p>
-                
                 <p>Mesmo que você só tenha um único treinamento, programa de mentoria ou um produto barato de R$97 que <strong class="highlight">vende em escala.</strong></p>
             </div>
-            <div class="consultation-image">
-                [Imagem: Mockup de Reunião Zoom]
-            </div>
+            <div class="consultation-image">[Imagem: Mockup Reunião Zoom]</div>
         </section>
 
-        <!-- Bio Section -->
         <section class="bio-section">
-            <div class="bio-image">
-                <!-- <img src="matheus-sanfer.jpg" alt="Matheus Sanfer" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;"> -->
-                <div style="display:flex; align-items:center; justify-content:center; height:100%;">[Foto de Matheus Sanfer]</div>
-            </div>
+            <div class="bio-image">[Foto de Matheus Sanfer]</div>
             <div class="bio-content">
                 <h2>Matheus Sanfer</h2>
-                <p>Empresário e mentor de negócios digitais de múltiplos 6, 7 e 8 dígitos que querem <strong class="highlight">aumentar o seu lucro sem precisar investir em tráfego ou fazer lançamentos.</strong></p>
-                <p>Foi responsável pela <strong class="highlight">criação de estratégias de Ascensão de Clientes</strong>, que consiste em fazer os clientes <strong class="highlight">avançarem dentro de um ecossistema</strong> em que eles comprem desde produtos de R$47 até produtos acima de R$10.000+.</p>
+                <p>Empresário e mentor de negócios digitais de múltiplos 6, 7 e 8 dígitos...</p>
+                <p>Foi responsável pela <strong class="highlight">criação de estratégias de Ascensão de Clientes</strong>...</p>
                 <p>Um modelo sofisticado onde os clientes pedem para avançar.</p>
                 <p>Conhecido por <strong class="highlight">vender produtos de R$997, R$1997, R$8.000 e R$40.000</strong> no perpétuo sem precisar investir em tráfego ou lançamentos, tem como o seu principal lema: <strong class="highlight">o melhor cliente não é o próximo, mas sim, o atual.</strong></p>
             </div>
         </section>
 
-        <!-- Footer -->
         <footer>
             <p>&copy; 2026 Matheus Sanfer. Todos os direitos reservados.</p>
-            <p style="margin-top: 0.5rem;"><a href="#" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Termos de Uso</a> | <a href="#" style="color: rgba(255,255,255,0.4); text-decoration: underline;">Política de Privacidade</a></p>
         </footer>
     </div>
 
+    <!-- QUIZ STEP 1 (Faturamento) -->
+    <div id="quiz-step-1" class="quiz-container hidden">
+        <div class="progress-bar-container"><div class="progress-bar" style="width: 33%;"></div></div>
+        <h2 class="quiz-title">Qual a média de faturamento mensal da sua empresa?</h2>
+        
+        <button class="quiz-option" onclick="nextStep(2)">Menos de R$10.000</button>
+        <button class="quiz-option" onclick="nextStep(2)">Entre R$20 Mil e R$50 Mil</button>
+        <button class="quiz-option" onclick="nextStep(2)">Entre R$50 Mil e R$100 Mil</button>
+        <button class="quiz-option" onclick="nextStep(2)">Entre R$100 Mil e R$300 Mil</button>
+        <button class="quiz-option" onclick="nextStep(2)">Entre R$300 Mil e R$500 Mil</button>
+        <button class="quiz-option" onclick="nextStep(2)">Entre R$500 Mil e R$1 Milhão</button>
+        <button class="quiz-option" onclick="nextStep(2)">Acima de R$1 Milhão por mês</button>
+    </div>
+
+    <!-- QUIZ STEP 2 (Instagram) -->
+    <div id="quiz-step-2" class="quiz-container hidden">
+        <div class="progress-bar-container"><div class="progress-bar" style="width: 66%;"></div></div>
+        <h2 class="quiz-title">Qual o @ do instagram do projeto?</h2>
+        
+        <div class="insta-box">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.975-9.421a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+            </svg>
+        </div>
+
+        <form id="instaForm">
+            <div class="form-group">
+                <input type="text" id="instagram" class="form-control" placeholder="Digite o @ do Instagram" required style="text-align: center; font-size: 1.2rem;">
+            </div>
+            <button type="submit" class="btn-submit" style="margin-top: 1rem;">Continuar</button>
+        </form>
+    </div>
+
+    <!-- QUIZ STEP 3 (Thank You Page) -->
+    <div id="thank-you-page" class="quiz-container hidden">
+        <div class="progress-bar-container"><div class="progress-bar" style="width: 100%;"></div></div>
+        <h1 class="thank-you-title">RECEBEMOS A SUA APLICAÇÃO</h1>
+        <p class="thank-you-subtitle">Nosso time entrará em contato. Assista o vídeo abaixo para entender como vai funcionar.</p>
+
+        <div class="video-container" style="margin-bottom: 3rem;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255,255,255,0.5);">Seu vídeo já começou - Clique para ouvir</div>
+        </div>
+
+        <a href="https://api.whatsapp.com/send?phone=556195111551&text=Quero%20pular%20fila%20para%20a%20Consultoria" target="_blank" class="btn-submit btn-green">CLIQUE PARA TENTAR PULAR A FILA</a>
+    </div>
+
+    <script>
+        // Form submission handling to prevent default POST request error on static hosting (like Vercel)
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent standard page reload / POST error
+            
+            // Collect lead data if you need to send to a webhook (optional)
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone_number').value;
+            const email = document.getElementById('email').value;
+
+            // Hide Landing Page and show Step 1
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('quiz-step-1').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        });
+
+        // Function to move to Step 2
+        function nextStep(stepNumber) {
+            document.getElementById('quiz-step-1').classList.add('hidden');
+            document.getElementById('quiz-step-' + stepNumber).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // Instagram Form Submission
+        document.getElementById('instaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide Step 2 and show Thank You Page
+            document.getElementById('quiz-step-2').classList.add('hidden');
+            document.getElementById('thank-you-page').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        });
+    </script>
 </body>
 </html>
